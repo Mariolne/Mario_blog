@@ -1,0 +1,13 @@
+baseURL = "http://example.org/"
+locale = "zh-cn"
+title = "Mario"
+theme = "PaperMod"
+
+[params.profileMode]
+    enabled = true
+    title = "Algorithm"
+    subtitle = "Mario"
+    
+    [[params.profileMode.buttons]]
+        name = "passage"
+        url = "posts/"
