@@ -2,6 +2,8 @@
 setlocal
 cd /d "%~dp0"
 
+echo [0/3] 清理 AI 标记...
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0clean-mark.ps1" >nul
 echo [1/3] 本地构建检查...
 hugo --gc --minify
 if errorlevel 1 goto build_fail

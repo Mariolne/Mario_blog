@@ -11,5 +11,3 @@ ShowBreadCrumbs: false
 题解和笔记都在 [Posts](/Mario_blog/posts/)。
 
 - GitHub: [Mariolne](https://github.com/Mariolne)
-
-> AI生成
