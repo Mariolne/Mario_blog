@@ -17,8 +17,17 @@ if errorlevel 1 (
 
 echo [3/3] 推送到 GitHub...
 git push
-if errorlevel 1 goto push_fail
+if not errorlevel 1 goto pushed
 
+echo 推送失败，刷新 DNS 缓存后自动重试一次...
+ipconfig /flushdns >nul
+ping -n 3 127.0.0.1 >nul
+git push
+if not errorlevel 1 goto pushed
+
+goto push_fail
+
+:pushed
 echo.
 echo 发布完成。GitHub Actions 约 1 分钟后更新：
 echo https://mariolne.github.io/Mario_blog/
@@ -32,6 +41,7 @@ goto end
 :push_fail
 echo.
 echo 推送失败：检查网络或 GitHub 登录状态，内容已提交但没上传。
+echo 隔几分钟再双击一次本文件即可，不用重新写文章。
 goto end
 
 :end
