@@ -1,7 +1,7 @@
 ---
 title: "{{ replace .File.ContentBaseName `-` ` ` | title }}"
 date: {{ .Date }}
-draft: true
+draft: true   # 写完把 true 改成 false，再双击「发布.bat」才会出现在线上
 tags: []
 categories: []
 summary: ""

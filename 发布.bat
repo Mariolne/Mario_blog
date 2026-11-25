@@ -1,31 +1,39 @@
 @echo off
-chcp 65001 >nul
+setlocal
 cd /d "%~dp0"
-echo [1/3] æœ¬åœ°æ„å»ºæ£€æŸ¥...
+
+echo [1/3] ±¾µØ¹¹½¨¼ì²é...
 hugo --gc --minify
-if errorlevel 1 (
-    echo.
-    echo æ„å»ºå¤±è´¥ï¼Œè¯·æŠŠä¸Šé¢çš„æŠ¥é”™å‘æˆ‘ã€‚å·²ä¸­æ­¢å‘å¸ƒã€‚
-    pause
-    exit /b 1
-)
-echo [2/3] æäº¤æ”¹åŠ¨...
+if errorlevel 1 goto build_fail
+
+echo [2/3] Ìá½»¸Ä¶¯...
 git add -A
-git diff-index --quiet HEAD --
+git diff --cached --quiet
 if errorlevel 1 (
-    git commit -m "post: %date% %time%"
+    git commit -m "publish %date% %time%"
 ) else (
-    echo æ²¡æœ‰å¯æäº¤çš„æ”¹åŠ¨ã€‚
+    echo Ã»ÓĞĞÂµÄ¸Ä¶¯ĞèÒªÌá½»¡£
 )
-echo [3/3] æ¨é€åˆ° GitHub...
+
+echo [3/3] ÍÆËÍµ½ GitHub...
 git push
-if errorlevel 1 (
-    echo.
-    echo æ¨é€å¤±è´¥ï¼Œæ£€æŸ¥ç½‘ç»œæˆ– GitHub ç™»å½•çŠ¶æ€ã€‚
-    pause
-    exit /b 1
-)
+if errorlevel 1 goto push_fail
+
 echo.
-echo å®Œæˆã€‚GitHub Actions æ„å»ºçº¦ 1 åˆ†é’Ÿåç”Ÿæ•ˆï¼š
-echo https://mariolne.github.io/
+echo ·¢²¼Íê³É¡£GitHub Actions Ô¼ 1 ·ÖÖÓºó¸üĞÂ£º
+echo https://mariolne.github.io/Mario_blog/
+goto end
+
+:build_fail
+echo.
+echo ¹¹½¨Ê§°Ü£º°ÑÉÏÃæµÄ±¨´í·¢ÎÒ£¬ÄÚÈİÃ»ÓĞ±»ÍÆËÍ¡£
+goto end
+
+:push_fail
+echo.
+echo ÍÆËÍÊ§°Ü£º¼ì²éÍøÂç»ò GitHub µÇÂ¼×´Ì¬£¬ÄÚÈİÒÑÌá½»µ«Ã»ÉÏ´«¡£
+goto end
+
+:end
+echo.
 pause

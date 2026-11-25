@@ -1,7 +1,9 @@
 @echo off
-chcp 65001 >nul
+setlocal
 cd /d "%~dp0"
-echo 姝ｅ湪鍚姩鏈湴棰勮锛屾祻瑙堝櫒绋嶅悗鑷姩鎵撳紑...
+echo 正在启动本地预览（草稿也能看到）...
+echo 浏览器会自动打开 http://localhost:1313/
+echo 关掉这个黑窗口就停止预览。
 start "" http://localhost:1313/
 hugo server -D --navigateToChanged
 pause

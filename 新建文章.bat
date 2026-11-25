@@ -1,18 +1,18 @@
 @echo off
-chcp 65001 >nul
+setlocal
 cd /d "%~dp0"
 echo ================================================
-echo  æ–°å»ºä¸€ç¯‡æ–‡ç« ï¼ˆé»˜è®¤æ˜¯é¢˜è§£æ¨¡æ¿ï¼‰
-echo  æ–‡ä»¶ååªèƒ½ç”¨è‹±æ–‡/æ•°å­—/çŸ­æ¨ªçº¿ï¼Œä¾‹å¦‚ï¼š
+echo  ĞÂ½¨Ò»ÆªÎÄÕÂ£¨Ìâ½âÄ£°å£©
+echo  ÎÄ¼şÃûÖ»ÄÜÓÃÓ¢ÎÄ¡¢Êı×Ö¡¢¶ÌºáÏß£¬ÀıÈç£º
 echo    lc-70-climbing-stairs
-echo    cf-1800-some-problem
 echo ================================================
-set /p name=è¯·è¾“å…¥æ–‡ä»¶åï¼ˆä¸è¦å¸¦ .mdï¼‰:
-if "%name%"=="" goto :end
+set /p name=ÇëÊäÈëÎÄ¼şÃû£¨²»Òª´ø .md£©:
+if "%name%"=="" goto end
 hugo new content "posts/%name%.md" --kind posts
-if errorlevel 1 goto :end
+if errorlevel 1 goto end
 notepad "content\posts\%name%.md"
 echo.
-echo å†™å®Œä¿å­˜åï¼ŒåŒå‡»ã€Œå‘å¸ƒ.batã€å³å¯ä¸Šçº¿ã€‚
+echo Ğ´Íê±£´æºó£¬°ÑÎÄ¼şÀïµÄ draft ¸Ä³É false£¬
+echo ÔÙË«»÷¡¸·¢²¼.bat¡¹²Å»á³öÏÖÔÚÏßÉÏ¡£
 :end
 pause
