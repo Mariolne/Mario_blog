@@ -35,6 +35,15 @@ html[data-theme="dark"] {
 :root {
     --main-width: 900px;
     --nav-width: 900px;
+
+    /* 代码块：浅色 GitHub 风格，不再是黑块 */
+    --code-block-bg: #f7f8fa;
+    --code-bg: #eef1f6;
+}
+
+:root[data-theme="dark"] {
+    --code-block-bg: #262b33;
+    --code-bg: #2c323b;
 }
 
 /* ===== 2. 排版：更紧凑的字号与中文字体 ===== */
@@ -84,10 +93,119 @@ pre {
 }
 
 .md-content pre code {
+    color: #24292f;
     font-size: 14px;
     line-height: 1.65;
     padding: 14px;
     word-break: normal;
+    border-radius: 10px;
+}
+
+:root[data-theme="dark"] .md-content pre code {
+    color: #c9d1d9;
+}
+
+/* 代码块描边，浅底上边界更清楚 */
+.md-content .highlight:not(table) {
+    border: 1px solid rgba(24, 60, 120, 0.09);
+    border-radius: 10px;
+}
+
+:root[data-theme="dark"] .md-content .highlight:not(table) {
+    border-color: rgba(255, 255, 255, 0.07);
+}
+
+/* 复制按钮配色跟随浅色代码块 */
+.copy-code {
+    color: var(--secondary);
+    background: rgba(24, 60, 120, 0.08);
+}
+
+:root[data-theme="dark"] .copy-code {
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+}
+
+/* 暗色模式下的语法高亮（GitHub Dark 色板，只覆盖常用 token） */
+:root[data-theme="dark"] .chroma .k,
+:root[data-theme="dark"] .chroma .kc,
+:root[data-theme="dark"] .chroma .kd,
+:root[data-theme="dark"] .chroma .kn,
+:root[data-theme="dark"] .chroma .kp,
+:root[data-theme="dark"] .chroma .kr,
+:root[data-theme="dark"] .chroma .kt {
+    color: #ff7b72;
+}
+
+:root[data-theme="dark"] .chroma .s,
+:root[data-theme="dark"] .chroma .sa,
+:root[data-theme="dark"] .chroma .sb,
+:root[data-theme="dark"] .chroma .sc,
+:root[data-theme="dark"] .chroma .dl,
+:root[data-theme="dark"] .chroma .sd,
+:root[data-theme="dark"] .chroma .s1,
+:root[data-theme="dark"] .chroma .s2,
+:root[data-theme="dark"] .chroma .se,
+:root[data-theme="dark"] .chroma .sh,
+:root[data-theme="dark"] .chroma .si,
+:root[data-theme="dark"] .chroma .sx,
+:root[data-theme="dark"] .chroma .sr,
+:root[data-theme="dark"] .chroma .ss {
+    color: #a5d6ff;
+}
+
+:root[data-theme="dark"] .chroma .c,
+:root[data-theme="dark"] .chroma .ch,
+:root[data-theme="dark"] .chroma .cm,
+:root[data-theme="dark"] .chroma .c1,
+:root[data-theme="dark"] .chroma .cs,
+:root[data-theme="dark"] .chroma .cp,
+:root[data-theme="dark"] .chroma .cpf {
+    color: #8b949e;
+}
+
+:root[data-theme="dark"] .chroma .m,
+:root[data-theme="dark"] .chroma .mb,
+:root[data-theme="dark"] .chroma .mf,
+:root[data-theme="dark"] .chroma .mh,
+:root[data-theme="dark"] .chroma .mi,
+:root[data-theme="dark"] .chroma .il,
+:root[data-theme="dark"] .chroma .mo {
+    color: #79c0ff;
+}
+
+:root[data-theme="dark"] .chroma .nf,
+:root[data-theme="dark"] .chroma .fm {
+    color: #d2a8ff;
+}
+
+:root[data-theme="dark"] .chroma .nc,
+:root[data-theme="dark"] .chroma .nn,
+:root[data-theme="dark"] .chroma .nb,
+:root[data-theme="dark"] .chroma .bp {
+    color: #ffa657;
+}
+
+:root[data-theme="dark"] .chroma .nt {
+    color: #7ee787;
+}
+
+:root[data-theme="dark"] .chroma .na,
+:root[data-theme="dark"] .chroma .nv,
+:root[data-theme="dark"] .chroma .vg,
+:root[data-theme="dark"] .chroma .vi,
+:root[data-theme="dark"] .chroma .vm,
+:root[data-theme="dark"] .chroma .nx {
+    color: #adbac7;
+}
+
+:root[data-theme="dark"] .chroma .o,
+:root[data-theme="dark"] .chroma .ow {
+    color: #f0f6fc;
+}
+
+:root[data-theme="dark"] .chroma .err {
+    color: #ffa198;
 }
 
 /* ===== 3. 顶部导航吸顶（半透明毛玻璃） ===== */

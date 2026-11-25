@@ -10,6 +10,16 @@ summaryLength = 80
 [pagination]
     pagerSize = 10
 
+# 代码高亮：输出 class 而非内联样式，配色由 assets/css/includes/chroma-styles.css 控制
+[markup]
+    [markup.highlight]
+        noClasses = false
+        style = "github"
+        lineNos = false
+        codeFences = true
+        guessSyntax = false
+        tabWidth = 4
+
 [outputs]
     home = ["HTML", "RSS", "JSON"]
 
