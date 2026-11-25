@@ -6,8 +6,10 @@ ShowToc: false
 ShowBreadCrumbs: false
 ---
 
-Hi, I'm Mario. CS undergrad into competitive programming, algorithms, and building small tools in C++ / Java / Python.
+计算机专业在读，主要折腾算法竞赛，也用 C++ / Java / Python 写点小工具。
 
-Solutions and notes live on the [Posts](/Mario_blog/posts/) page.
+题解和笔记都在 [Posts](/Mario_blog/posts/)。
 
 - GitHub: [Mariolne](https://github.com/Mariolne)
+
+> AI生成
