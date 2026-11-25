@@ -1,7 +1,7 @@
 ---
 title: "{{ replace .File.ContentBaseName `-` ` ` | title }}"
 date: {{ .Date }}
-draft: true   # 写完把 true 改成 false，再双击「发布.bat」才会出现在线上
+draft: true   # 写完把 true 改成 false，再双击「发布.bat」才会出现在线上；正文用中文没问题，界面已是英文
 tags: []
 categories: []
 summary: ""
@@ -9,20 +9,20 @@ ShowToc: true
 TocOpen: false
 ---
 
-## Problem
+## 题目大意
 
-## Approach
+## 思路
 
-## Complexity
+## 复杂度
 
-- Time: O()
-- Space: O()
+- 时间：O()
+- 空间：O()
 
-## Code
+## 代码
 
 ```cpp
 ```
 
-## Pitfalls
+## 易错点
 
 > AI生成

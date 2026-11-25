@@ -11,5 +11,3 @@ Hi, I'm Mario. CS undergrad into competitive programming, algorithms, and buildi
 Solutions and notes live on the [Posts](/Mario_blog/posts/) page.
 
 - GitHub: [Mariolne](https://github.com/Mariolne)
-
-> AI生成

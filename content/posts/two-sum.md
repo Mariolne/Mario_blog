@@ -1,48 +1,48 @@
 ---
-title: "Two Sum"
+title: "两数之和 (LeetCode 1)"
 date: 2026-11-17T09:00:00+08:00
 draft: false
 tags: ["Hash Table", "Array"]
-summary: "Brute force is O(n²). Hash the seen values and look up the complement as you scan: one pass, O(n)."
+summary: "暴力是 O(n²)。用哈希表边扫边查补数，一次遍历降到 O(n)。"
 ShowToc: true
 TocOpen: false
 ---
 
-## Problem
+## 题目大意
 
-Given an integer array `nums` and a target `target`, return the indices of the two numbers that add up to `target` (each element used once, exactly one answer exists).
+给定整数数组 `nums` 和目标值 `target`，找出和为 `target` 的两个下标（每个元素只用一次，答案唯一存在）。
 
-## Approach
+## 思路
 
-The trick isn't "finding two numbers" — it's making "look up the other number" O(1).
+关键不在"找两个数"，而在于把"查另一个数"变成 O(1)。
 
-At each `nums[i]`, what you need is `target - nums[i]`. If that value appeared before, you're done; otherwise record `nums[i]` in a hash map `value -> index` and move on.
+遍历到 `nums[i]` 时，需要的是 `target - nums[i]`。这个值如果之前出现过，答案就有了；没出现就把 `nums[i]` 记进哈希表 `值 -> 下标`，继续往后走。
 
-Why insert **as you scan** instead of pre-filling the map: an element can't pair with itself. Check-then-insert rules that case out by construction.
+之所以**边遍历边插入**而不是先全插一遍：题目不允许同一元素用两次，"先查后插"天然回避了元素和自己配对的情况。
 
-## Complexity
+## 复杂度
 
-- Time: O(n) — one hash lookup per element
-- Space: O(n) — worst case the map holds every element
+- 时间：O(n)，每个元素查一次哈希表
+- 空间：O(n)，最坏情况存下全部元素
 
-## Code
+## 代码
 
 ```cpp
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        unordered_map<int, int> pos;   // value -> index
+        unordered_map<int, int> pos;   // 值 -> 下标
         for (int i = 0; i < (int)nums.size(); ++i) {
             auto it = pos.find(target - nums[i]);
-            if (it != pos.end()) return {it->second, i};  // check first
-            pos[nums[i]] = i;                             // insert after
+            if (it != pos.end()) return {it->second, i};  // 先查
+            pos[nums[i]] = i;                             // 后插
         }
         return {};
     }
 };
 ```
 
-Python version, same idea:
+Python 版本，思路一致：
 
 ```python
 class Solution:
@@ -55,10 +55,8 @@ class Solution:
         return []
 ```
 
-## Pitfalls
+## 易错点
 
-- Insert before checking and `[3,3]` degenerates to `[i, i]` — always **check then insert**;
-- The answer wants **indices**, not values;
-- With duplicates (e.g. `[3,3]`) a pre-filled map keeps only the last index, but check-then-insert returns the first valid pair before that ever matters.
-
-> AI生成
+- 先插后查会让 `[3,3]` 退化成 `[i, i]` 自己配自己，必须**先查后插**；
+- 返回的是**下标**不是数值；
+- 有重复元素时（如 `[3,3]`）先全插的哈希表只保留最后一个下标，但先查后插在第一对答案出现时就返回了，不受影响。
