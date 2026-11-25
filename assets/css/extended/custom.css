@@ -1,5 +1,6 @@
 /* 站点自定义样式：浅色渐变背景 + 半透明卡片，深浅色自适应 */
 
+/* —— 背景部分（保持不动）—— */
 html {
     background: linear-gradient(160deg, #eef3fb 0%, #f8fafc 45%, #e9f0f9 100%) fixed !important;
 }
@@ -9,7 +10,8 @@ body {
     min-height: 100vh;
 }
 
-html:has(body.dark) {
+/* 深色模式背景（PaperMod v8 用 html[data-theme] 标记） */
+html[data-theme="dark"] {
     background: linear-gradient(160deg, #0f1115 0%, #14171c 50%, #101216 100%) fixed !important;
 }
 
@@ -24,20 +26,192 @@ html:has(body.dark) {
     margin-bottom: 36px;
 }
 
-.dark .main {
+[data-theme="dark"] .main {
     background-color: rgba(22, 24, 29, 0.85) !important;
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
 }
 
-/* 首页 profile 模式下的按钮间距微调 */
+/* ===== 1. 布局：内容列 720 -> 900，顶栏与内容对齐 ===== */
+:root {
+    --main-width: 900px;
+    --nav-width: 900px;
+}
+
+/* ===== 2. 排版：更紧凑的字号与中文字体 ===== */
+body {
+    font-size: 17px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+.post-title {
+    font-size: 32px;
+}
+
+.page-header h1 {
+    font-size: 28px;
+}
+
+.md-content h2 {
+    font-size: 26px;
+    margin: 36px auto 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.md-content h3 {
+    font-size: 20px;
+}
+
+.md-content blockquote {
+    border-inline-start: 3px solid #5b8dd9;
+    background: rgba(91, 141, 217, 0.06);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 16px;
+}
+
+[data-theme="dark"] .md-content blockquote {
+    background: rgba(91, 141, 217, 0.1);
+}
+
+code,
+pre {
+    font-family: "JetBrains Mono", "Cascadia Code", Consolas, "Courier New", monospace;
+}
+
+.post-content code {
+    font-size: 0.82em;
+}
+
+.md-content pre code {
+    font-size: 14px;
+    line-height: 1.65;
+    padding: 14px;
+    word-break: normal;
+}
+
+/* ===== 3. 顶部导航吸顶（半透明毛玻璃） ===== */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(24, 60, 120, 0.08);
+}
+
+[data-theme="dark"] .header {
+    background: rgba(18, 20, 25, 0.75);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ===== 4. 锚点定位：平滑滚动，标题不被吸顶栏挡住 ===== */
+html {
+    scroll-behavior: smooth;
+}
+
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+    scroll-margin-top: calc(var(--header-height) + 20px);
+}
+
+/* ===== 5. 左侧「本文导航」（JS 生成，宽屏才显示） ===== */
+.side-toc {
+    display: none;
+    position: fixed;
+    top: calc(var(--header-height) + 28px);
+    bottom: 24px;
+    width: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 14px;
+    scrollbar-width: thin;
+}
+
+.side-toc-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--secondary);
+    padding: 0 10px;
+    margin-bottom: 6px;
+}
+
+.side-toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.side-toc li {
+    margin: 2px 0;
+}
+
+.side-toc a {
+    display: block;
+    padding: 5px 10px;
+    color: var(--secondary);
+    text-decoration: none !important;
+    border-left: 2px solid transparent;
+    border-radius: 0 6px 6px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.side-toc .side-toc-l3 a {
+    padding-left: 24px;
+}
+
+.side-toc a:hover {
+    color: var(--primary);
+    background: rgba(24, 60, 120, 0.05);
+}
+
+.side-toc a.active {
+    color: #2563eb;
+    border-left-color: #2563eb;
+    background: rgba(37, 99, 235, 0.07);
+    font-weight: 600;
+}
+
+[data-theme="dark"] .side-toc a:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .side-toc a.active {
+    color: #7cb0ff;
+    border-left-color: #7cb0ff;
+    background: rgba(124, 176, 255, 0.09);
+}
+
+/* 左侧导航出现时，隐藏文章内的折叠目录（避免重复） */
+body.has-side-toc .post-single > details.toc {
+    display: none;
+}
+
+/* ===== 6. 首页 profile 模式按钮间距 ===== */
 .profile .buttons {
     gap: 10px;
 }
 
-/* 文章内链接更明显一点 */
+/* ===== 7. 文章内链接更明显一点 ===== */
 .post-content a {
     text-decoration: underline;
     text-underline-offset: 3px;
+}
+
+/* ===== 8. 列表页卡片悬停效果 ===== */
+.post-entry {
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.post-entry:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(24, 60, 120, 0.1);
 }
 
 @media (max-width: 640px) {

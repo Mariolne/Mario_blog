@@ -1,0 +1,78 @@
+{{- /* 左侧本文导航：文章页自动生成，宽屏显示 + 滚动高亮，窄屏自动隐藏 */ -}}
+{{- if .IsPage }}
+<script>
+(function () {
+    var SIDEBAR_W = 200, SIDE_GAP = 28, MIN_LEFT = 8;
+
+    function build() {
+        var main = document.querySelector('main.main');
+        var content = document.querySelector('.post-content');
+        if (!main || !content) return;
+
+        var heads = Array.prototype.slice.call(
+            content.querySelectorAll('h2[id], h3[id]')
+        );
+        if (heads.length < 2) return;
+
+        var nav = document.createElement('nav');
+        nav.className = 'side-toc';
+        nav.setAttribute('aria-label', '本文导航');
+
+        var title = document.createElement('div');
+        title.className = 'side-toc-title';
+        title.textContent = '本文导航';
+
+        var ul = document.createElement('ul');
+        heads.forEach(function (h) {
+            var clone = h.cloneNode(true);
+            Array.prototype.forEach.call(
+                clone.querySelectorAll('a, svg, .anchor'),
+                function (n) { n.remove(); }
+            );
+            var li = document.createElement('li');
+            li.className = h.tagName === 'H3' ? 'side-toc-l3' : 'side-toc-l2';
+            var a = document.createElement('a');
+            a.href = '#' + h.id;
+            a.textContent = clone.textContent.trim();
+            li.appendChild(a);
+            ul.appendChild(li);
+        });
+
+        nav.appendChild(title);
+        nav.appendChild(ul);
+        document.body.appendChild(nav);
+
+        var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+
+        function place() {
+            var left = main.getBoundingClientRect().left - SIDEBAR_W - SIDE_GAP;
+            var on = left >= MIN_LEFT;
+            nav.style.display = on ? 'block' : 'none';
+            if (on) nav.style.left = left + 'px';
+            document.body.classList.toggle('has-side-toc', on);
+        }
+
+        function spy() {
+            var hs = document.querySelectorAll('.post-content h2[id], .post-content h3[id]');
+            var as = nav.querySelectorAll('a');
+            var line = window.scrollY + 100;
+            var active = -1;
+            for (var i = 0; i < hs.length; i++) {
+                if (hs[i].getBoundingClientRect().top + window.scrollY <= line) active = i;
+            }
+            for (var j = 0; j < as.length; j++) {
+                as[j].classList.toggle('active', j === active);
+            }
+        }
+
+        place();
+        spy();
+        window.addEventListener('resize', place);
+        window.addEventListener('scroll', spy, { passive: true });
+    }
+
+    if (document.readyState !== 'loading') build();
+    else document.addEventListener('DOMContentLoaded', build);
+})();
+</script>
+{{- end }}
