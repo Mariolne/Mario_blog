@@ -9,20 +9,20 @@ ShowToc: true
 TocOpen: false
 ---
 
-## 题意
+## Problem
 
-## 思路
+## Approach
 
-## 复杂度
+## Complexity
 
-- 时间：O()
-- 空间：O()
+- Time: O()
+- Space: O()
 
-## 代码
+## Code
 
 ```cpp
 ```
 
-## 易错点
+## Pitfalls
 
 > AI生成

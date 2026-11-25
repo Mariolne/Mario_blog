@@ -1,8 +1,8 @@
 ---
-title: "搜索"
+title: "Search"
 layout: "search"
-summary: "search"
-placeholder: "输入关键词，比如 线段树、背包、二分"
+summary: ""
+placeholder: "type keywords to search"
 ---
 
 > AI生成

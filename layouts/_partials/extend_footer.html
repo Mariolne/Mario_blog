@@ -16,11 +16,11 @@
 
         var nav = document.createElement('nav');
         nav.className = 'side-toc';
-        nav.setAttribute('aria-label', '本文导航');
+        nav.setAttribute('aria-label', 'On this page');
 
         var title = document.createElement('div');
         title.className = 'side-toc-title';
-        title.textContent = '本文导航';
+        title.textContent = 'On this page';
 
         var ul = document.createElement('ul');
         heads.forEach(function (h) {
@@ -41,8 +41,6 @@
         nav.appendChild(title);
         nav.appendChild(ul);
         document.body.appendChild(nav);
-
-        var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
 
         function place() {
             var left = main.getBoundingClientRect().left - SIDEBAR_W - SIDE_GAP;
